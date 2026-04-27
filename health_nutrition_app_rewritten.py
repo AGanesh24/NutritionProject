@@ -351,7 +351,7 @@ def generate_gemini_response(prompt: str) -> tuple[str, str]:
             last_error = exc
 
     if last_error is None:
-        last_error = RuntimeError("Gemini did not return any content.")
+        last_error = RuntimeError("Check parameters!")
     raise RuntimeError(str(last_error))
 
 
@@ -601,6 +601,20 @@ def render_sidebar() -> None:
     st.sidebar.caption("This app gives athlete-focused food suggestions and is not a medical diagnosis tool.")
 
 
+def render_user_header() -> None:
+    current_user = get_current_user()
+    if not current_user:
+        return
+
+    info_col, action_col = st.columns([5, 1])
+    with info_col:
+        st.caption(f"Signed in as {current_user.get('email', 'Unknown user')}")
+    with action_col:
+        if st.button("Log out", key="main_logout_button"):
+            sign_out_user()
+            st.rerun()
+
+
 def render_auth_screen() -> bool:
     if get_current_user() is not None:
         return True
@@ -663,7 +677,7 @@ def render_auth_screen() -> bool:
 def render_planner_tab() -> None:
     current_user = get_current_user() or {}
     st.subheader("Build an athlete meal plan")
-    st.write("Fill in the athlete profile and Gemini will generate a performance-focused food recommendation plan.")
+    st.write("Fill in the athlete profile.")
 
     default_sport = current_user.get("preferred_sport", SPORT_OPTIONS[0])
     default_goal = current_user.get("preferred_goal", GOAL_OPTIONS[0])
@@ -774,7 +788,7 @@ def render_planner_tab() -> None:
     prompt = build_meal_plan_prompt(profile, targets)
 
     try:
-        with st.spinner("Generating athlete meal plan with Gemini..."):
+        with st.spinner("Generating athlete meal plan ..."):
             response, model_name = generate_gemini_response(prompt)
     except Exception as exc:
         st.error(str(exc))
@@ -809,7 +823,7 @@ def render_planner_tab() -> None:
 def render_food_analyzer_tab() -> None:
     current_user = get_current_user() or {}
     st.subheader("Analyze a food item")
-    st.write("Use Gemini to break down a food item for athlete performance, meal timing, and caution points.")
+    #st.write("Use Gemini to break down a food item for athlete performance, meal timing, and caution points.")
 
     default_sport = current_user.get("preferred_sport", SPORT_OPTIONS[0])
     default_goal = current_user.get("preferred_goal", GOAL_OPTIONS[0])
@@ -840,7 +854,7 @@ def render_food_analyzer_tab() -> None:
     prompt = build_food_analyzer_prompt(food_item.strip(), serving_size.strip() or "1 serving", sport_type, goal)
 
     try:
-        with st.spinner("Analyzing food with Gemini..."):
+        with st.spinner("Analyzing food ..."):
             response, model_name = generate_gemini_response(prompt)
     except Exception as exc:
         st.error(str(exc))
@@ -872,12 +886,14 @@ def render_history_tab() -> None:
 def main() -> None:
     st.set_page_config(page_title=APP_TITLE, layout="wide")
     st.title(APP_TITLE)
-    st.caption("Gemini-powered athlete meal planning with Supabase login, profile storage, and saved plan history.")
+    #st.caption("Gemini-powered athlete meal planning with Supabase login, profile storage, and saved plan history.")
 
     render_sidebar()
 
     if not render_auth_screen():
         return
+
+    render_user_header()
 
     planner_tab, analyzer_tab, history_tab = st.tabs(["Athlete Planner", "Food Analyzer", "Saved Plans"])
     with planner_tab:
