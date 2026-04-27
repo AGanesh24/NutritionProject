@@ -300,7 +300,8 @@ def sign_out_user() -> None:
 def generate_gemini_response(prompt: str) -> tuple[str, str]:
     api_key = get_api_key()
     if not api_key:
-        raise RuntimeError("Missing GEMINI_API_KEY. Add it to Streamlit secrets before generating recommendations.")
+        #raise RuntimeError("Missing GEMINI_API_KEY. Add it to Streamlit secrets before generating recommendations.")
+        raise RuntimeError("Check API key...")
 
     configured_model = get_secret_value("GEMINI_MODEL")
     candidate_models = [model for model in [configured_model, *MODEL_CANDIDATES] if model]
@@ -628,7 +629,7 @@ def render_auth_screen() -> bool:
 def render_planner_tab() -> None:
     current_user = get_current_user() or {}
     st.subheader("Build an athlete meal plan")
-    st.write("Fill in the athlete profile and Gemini will generate a performance-focused food recommendation plan.")
+    #st.write("Fill in the athlete profile and Gemini will generate a performance-focused food recommendation plan.")
 
     default_sport = current_user.get("preferred_sport", SPORT_OPTIONS[0])
     default_goal = current_user.get("preferred_goal", GOAL_OPTIONS[0])
@@ -739,7 +740,7 @@ def render_planner_tab() -> None:
     prompt = build_meal_plan_prompt(profile, targets)
 
     try:
-        with st.spinner("Generating athlete meal plan with Gemini..."):
+        with st.spinner("Classifying foods based on mentioned params..."):
             response, model_name = generate_gemini_response(prompt)
     except Exception as exc:
         st.error(str(exc))
@@ -774,7 +775,7 @@ def render_planner_tab() -> None:
 def render_food_analyzer_tab() -> None:
     current_user = get_current_user() or {}
     st.subheader("Analyze a food item")
-    st.write("Use Gemini to break down a food item for athlete performance, meal timing, and caution points.")
+    #st.write("Use Gemini to break down a food item for athlete performance, meal timing, and caution points.")
 
     default_sport = current_user.get("preferred_sport", SPORT_OPTIONS[0])
     default_goal = current_user.get("preferred_goal", GOAL_OPTIONS[0])
@@ -805,7 +806,7 @@ def render_food_analyzer_tab() -> None:
     prompt = build_food_analyzer_prompt(food_item.strip(), serving_size.strip() or "1 serving", sport_type, goal)
 
     try:
-        with st.spinner("Analyzing food with Gemini..."):
+        with st.spinner("Analyzing food..."):
             response, model_name = generate_gemini_response(prompt)
     except Exception as exc:
         st.error(str(exc))
