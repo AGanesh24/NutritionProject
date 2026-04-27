@@ -260,7 +260,7 @@ def sign_up_user(
             }
         )
         return "Account created and logged in."
-    return "Account created. If email confirmation is enabled in Supabase, verify the email before logging in."
+    return "Account created, Log in from side panel"
 
 
 def sign_in_user(email: str, password: str) -> None:
