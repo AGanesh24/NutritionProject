@@ -879,7 +879,7 @@ def render_history_tab() -> None:
             f"{record.get('goal', 'Goal not set')}"
         )
         with st.expander(heading):
-            st.caption(f"Generated with {record.get('gemini_model', 'Gemini')}")
+           # st.caption(f"Generated with {record.get('gemini_model', 'Gemini')}")
             st.markdown(record.get("recommendation", ""))
 
 
