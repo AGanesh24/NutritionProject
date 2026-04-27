@@ -837,7 +837,7 @@ def render_history_tab() -> None:
 def main() -> None:
     st.set_page_config(page_title=APP_TITLE, layout="wide")
     st.title(APP_TITLE)
-    st.caption("Gemini-powered athlete meal planning with Supabase login, profile storage, and saved plan history.")
+    #st.caption("Gemini-powered athlete meal planning with Supabase login, profile storage, and saved plan history.")
 
     render_sidebar()
 
