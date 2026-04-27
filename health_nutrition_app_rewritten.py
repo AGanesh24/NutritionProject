@@ -745,7 +745,7 @@ def render_planner_tab() -> None:
         st.error(str(exc))
         return
 
-    st.success(f"Recommendation generated with {model_name}.")
+    #st.success(f"Recommendation generated with {model_name}.")
     st.markdown(response)
     st.download_button(
         "Download meal plan",
