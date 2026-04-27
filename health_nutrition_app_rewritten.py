@@ -620,7 +620,7 @@ def render_auth_screen() -> bool:
         return True
 
     st.subheader("Login or create your account")
-    st.write("Create a simple app account stored in Supabase. No email verification or SMTP is required.")
+   # st.write("Create a simple app account stored in Supabase. No email verification or SMTP is required.")
 
     if get_supabase_client() is None:
         st.error("Supabase is not configured. Add `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` in Streamlit secrets.")
