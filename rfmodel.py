@@ -9,6 +9,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.metrics import accuracy_score, f1_score, classification_report, hamming_loss
+from google import genai
 
 # Configure Gemini API (Replace with your own API key)
 genai.configure(api_key="AIzaSyDFVCvSDTtQxjOcH2rTrHI0Ab9LhnDp_wg")  # Replace with actual key
