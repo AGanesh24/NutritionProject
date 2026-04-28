@@ -15,7 +15,7 @@ from supabase import Client, create_client
 APP_TITLE = "Athlete Food Recommendation System"
 USERS_TABLE = "app_users"
 PLANS_TABLE = "athlete_recommendations"
-MODEL_CANDIDATES = ("gemini-2.5-flash")
+MODEL_CANDIDATES = ("Gemini 3.1 Flash-Lite")
 PASSWORD_ITERATIONS = 390000
 PASSWORD_SALT_BYTES = 16
 
@@ -543,7 +543,7 @@ def render_sidebar() -> None:
         'SUPABASE_URL = "https://your-project.supabase.co"\n'
         'SUPABASE_SERVICE_KEY = "your-supabase-service-role-key"\n'
         '# Optional\n'
-        'GEMINI_MODEL = "gemini-2.5-flash"',
+        'GEMINI_MODEL = "Gemini 3.1 Flash-Lite"',
         language="toml",
     )
 
