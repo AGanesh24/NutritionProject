@@ -15,7 +15,7 @@ from supabase import Client, create_client
 APP_TITLE = "Athlete Food Recommendation System"
 USERS_TABLE = "app_users"
 PLANS_TABLE = "athlete_recommendations"
-MODEL_CANDIDATES = ("gemini-2.5-flash", "gemini-2.0-flash")
+MODEL_CANDIDATES = ("gemini-2.5-flash")
 PASSWORD_ITERATIONS = 390000
 PASSWORD_SALT_BYTES = 16
 
